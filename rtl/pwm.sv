@@ -15,7 +15,7 @@ module pwm #(
 	logic [19:0] counter; //bits for counter until 1,000,000
 
 	always_ff@(posedge clk or negedge rst_n)begin
-		if (!rst_n) begin
+		if (!rst_n) begin                   //if counter in zero each reset low
 			counter <= '0;
 			pwm_out <= 1'b0;
 		end else begin
