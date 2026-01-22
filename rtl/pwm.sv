@@ -5,7 +5,7 @@ module pwm #(
 )(
 	input logic clk,         //System clock
 	input logic rst_n,       //Reset
-       	input logic [15:0] duty, //Total pulse width or maximum
+       	input logic [17:0] duty, //Total pulse width or maximum
 	output logic pwm_out     //Out direct to servo
 
 );
@@ -25,7 +25,7 @@ module pwm #(
 				counter <= '0;
 			end
 
-		pwm_out <= (counter < duty);
+  		pwm_out <= (counter < duty); //if duty is mayor that counter pwm_out=1, else pwm_out=0
 
          	end
 

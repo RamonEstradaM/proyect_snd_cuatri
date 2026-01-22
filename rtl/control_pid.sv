@@ -2,9 +2,9 @@ module control_pid(
 
 	input logic clk,
 	input logic rst_n,
-	input logic [15:0] set_position,  //position
-	input logic [15:0] fb,           //feedback
-	output logic [16:0] duty_out    //value for the pwm
+	input logic [11:0] gtob_out,  //position desire
+	input logic [11:0] position_b_out,           //feedback
+	output logic [17:0] duty_out    //value for the pwm
 );
 
 	//coeficients control PID
@@ -26,7 +26,7 @@ module control_pid(
 			last_error <= 0;
 			duty_out <= 75000; //return to center
 		end else begin 
-			error = $signed({1,b0, setpoint}) - $signed({1'b0, fb});
+			error = $signed({1,b0, gtob_out}) - $signed({1'b0, position_b_out});
 
 			integral <= integral + error;  //calculated integral error
 			
@@ -41,7 +41,7 @@ module control_pid(
 			else if (control_val < MIN_DUTY)
 				duty_out <= MIN_DUTY;
 			else
-				duty_out <= control_val[16:0]
+				duty_out <= control_val[17:0]
 		end
 	end
 endmodule
