@@ -1,4 +1,22 @@
-module current_monitor();
+module current_monitor(
+	input logic clk,
+	input logic rst_n,
+	input real measure_current,
+	output logic current_high
+);
+	logic current_b_out;
+
+	adc adc_current(
+		.measure_current(analog_in),
+		.digital_out(current_b_out)
+	);
+
+	current_process current_process_top(
+		.clk(clk),
+		.rst_n(rst_n),
+		.current_b_out(current_b_out),
+		.current_high(current_high)
+	);
 
 endmodule
 
