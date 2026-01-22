@@ -1,0 +1,31 @@
+module top_servo_tb();
+	bit clk;
+	logic rst_n;
+	real grades;
+	real measure_current;
+	real measure_grades;
+
+	//instansiation
+	
+	top_servo top_servo_sim(
+		.clk(clk),
+		.rst_n(rst_n),
+		.grades(grades),
+		.measure_current(measure_current),
+		.measure_grades(measure_grades),
+	);
+
+	always #5ns clk = ~clk;
+
+		initial begin
+			arst_n = 0;
+			grades = 0;
+			measure_current = 0;
+			measure_grades = 0;
+			#20ns;
+			arst_n=1;
+
+		end
+
+
+endmodule
