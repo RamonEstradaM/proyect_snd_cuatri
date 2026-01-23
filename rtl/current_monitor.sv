@@ -7,7 +7,7 @@ module current_monitor(
 	logic current_b_out;
 
 	adc adc_current(
-		.measure_current(analog_in),
+		.analog_in(measure_current),
 		.digital_out(current_b_out)
 	);
 

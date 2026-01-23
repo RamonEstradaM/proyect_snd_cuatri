@@ -41,7 +41,7 @@ module control_pid(
 			else if (control_val < MIN_DUTY)
 				duty_out <= MIN_DUTY;
 			else
-				duty_out <= control_val[17:0]
+				duty_out <= control_val[17:0];
 		end
 	end
 endmodule

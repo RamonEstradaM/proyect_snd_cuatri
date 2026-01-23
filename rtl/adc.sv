@@ -13,7 +13,7 @@ module adc #(
 		else if (analog_in <= 0.0)
 			digital_out = 12'd0;
 		else
-			digital_out = $rtoi(scale_factor*analog_in) //real to integer
+			digital_out = $rtoi(scale_factor*analog_in); //real to integer
 
 	end
 

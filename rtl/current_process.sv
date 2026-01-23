@@ -7,7 +7,7 @@ module current_process#(
 	input logic [11:0] current_b_out,
 	output logic current_high
 );
-	int time_current_high
+	int time_current_high;
 	
 	always_ff @(posedge clk or negedge rst_n) begin
 		if(!rst_n) begin

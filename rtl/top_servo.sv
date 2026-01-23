@@ -18,7 +18,7 @@ module top_servo(
 
 	conv_g_to_b grades_top(
 		.grades(grades),
-		.gtob_out(gtob_out),
+		.gtob_out(gtob_out)
 	);
 
 	control_pid pid_top(
