@@ -6,9 +6,9 @@ module adc #(
 	input real analog_in,                 //input analogic of the sensors
 	output logic [BITS-1:0] digital_out  // ADC output
 );
-	real scale_factor = 4095/VMAX;
+	real scale_factor = 4095/V_MAX;
 	always_comb begin
-		if(analog_in >= VMAX)
+		if(analog_in >= V_MAX)
 			digital_out = 12'd4095;
 		else if (analog_in <= 0.0)
 			digital_out = 12'd0;

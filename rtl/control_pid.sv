@@ -12,10 +12,12 @@ module control_pid(
 	parameter int KI = 1;
 	parameter int KD = 10;
 
-	signed [31:0] error;
-	signed [31:0] last_error;
-	signed [31:0] control_val;
-	
+	logic signed [31:0] error;
+	logic signed [31:0] last_error;
+	logic signed [31:0] control_val;
+	logic signed [31:0] integral;
+	logic signed [31:0] derivative;
+
 	localparam signed [31:0] MIN_DUTY = 50000; //in grades = 0
 	localparam signed [31:0] OFFSET = 75000; //in grades = 90
 	localparam signed [31:0] MAX_DUTY= 100000; // in grades = 180
@@ -26,7 +28,7 @@ module control_pid(
 			last_error <= 0;
 			duty_out <= 75000; //return to center
 		end else begin 
-			error = $signed({1,b0, gtob_out}) - $signed({1'b0, position_b_out});
+			error = $signed({1'b0, gtob_out}) - $signed({1'b0, position_b_out});
 
 			integral <= integral + error;  //calculated integral error
 			

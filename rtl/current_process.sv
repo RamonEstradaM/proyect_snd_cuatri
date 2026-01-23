@@ -17,9 +17,9 @@ module current_process#(
 			if (CURRENT_MAX > current_b_out)begin
 				if(time_current_high > TIME_LIMIT)begin
 					current_high <= 1'b1;
-				end else 
-					time_current_high <= time_current_high + 1;
-
+				end
+			end else 
+				time_current_high <= time_current_high + 1;
 			end
 	end
 endmodule
