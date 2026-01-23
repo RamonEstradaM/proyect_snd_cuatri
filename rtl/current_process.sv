@@ -14,12 +14,13 @@ module current_process#(
 			time_current_high <= 0;
 			current_high <= 1'b1;
 		end else begin
-			if (CURRENT_MAX > current_b_out)begin
+			if (CURRENT_MAX <=  current_b_out)begin
 				if(time_current_high > TIME_LIMIT)begin
 					current_high <= 1'b1;
 				end
 			end else 
 				time_current_high <= time_current_high + 1;
+				current_high <= 1'b0;
 			end
 	end
 endmodule
