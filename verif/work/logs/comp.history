@@ -1,6 +1,0 @@
-#e1(23Jan2026:00:42:13): source ./xcelium.d/env.d/env.history.23Jan2026_00_42_13
-s1(23Jan2026:00:42:13):  xrun -f list.f -l ./logs/comp.log +define+alfacen_noaxi_base_test+ -access +rwc -timescale 1ns/1ps -sv 
-#e2(23Jan2026:00:44:53): source ./xcelium.d/env.d/env.history.23Jan2026_00_44_53
-s2(23Jan2026:00:44:53):  xrun -f list.f -l ./logs/comp.log +define+alfacen_noaxi_base_test+ -access +rwc -timescale 1ns/1ps -sv 
-#e3(23Jan2026:00:45:21): source ./xcelium.d/env.d/env.history.23Jan2026_00_45_21
-s3(23Jan2026:00:45:21):  xrun -f list.f -l ./logs/comp.log +define+alfacen_noaxi_base_test+ -access +rwc -timescale 1ns/1ps -sv 

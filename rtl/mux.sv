@@ -1,7 +1,7 @@
 module mux(
 
 	input logic current_high,
-	input logic [17:0] pid_out,
+	input logic [17:0] duty_out,
 	output logic [17:0] pwm_in
 );
 
@@ -10,6 +10,6 @@ module mux(
 		if (current_high)
 			pwm_in = 18'b0;
 		else
-			pwm_in = pid_out;
+			pwm_in = duty_out;
 	end
 endmodule

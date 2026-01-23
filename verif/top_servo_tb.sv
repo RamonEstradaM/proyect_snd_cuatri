@@ -4,6 +4,7 @@ module top_servo_tb();
 	real grades;
 	real measure_current;
 	real measure_grades;
+	logic pwm_out;
 
 	//instansiation
 	
@@ -13,17 +14,18 @@ module top_servo_tb();
 		.grades(grades),
 		.measure_current(measure_current),
 		.measure_grades(measure_grades),
+		.pwm_out(pwm_out)
 	);
 
 	always #5ns clk = ~clk;
 
 		initial begin
-			arst_n = 0;
+			rst_n = 0;
 			grades = 0;
 			measure_current = 0;
 			measure_grades = 0;
 			#20ns;
-			arst_n=1;
+			rst_n=1;
 
 		end
 

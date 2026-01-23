@@ -31,14 +31,14 @@ module top_servo(
 
 	mux mux_top(
 		.current_high(current_high),
-		.duty_out(pid_out),
+		.duty_out(duty_out),
 		.pwm_in(pwm_in)
 	);
 
 	pwm pwm_top(
 		.clk(clk),
 		.rst_n(rst_n),
-		.pwm_in(duty),
+		.duty(pwm_in),
 		.pwm_out(pwm_out)
 	);
 
@@ -49,7 +49,7 @@ module top_servo(
 		.current_high(current_high)
 	);
 
-	adc #(.VMAX(180)) adc_position(
+	adc #(.V_MAX(180)) adc_position(
 		.analog_in(measure_grades),
 		.digital_out(position_b_out)
 	);

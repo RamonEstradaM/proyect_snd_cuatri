@@ -17,19 +17,17 @@ module pwm #(
 	always_ff@(posedge clk or negedge rst_n)begin
 		if (!rst_n) begin                   //if counter in zero each reset low
 			counter <= '0;
-			pwm_out <= 1'b0;
 		end else begin
-			if (counter < TOTAL PERIOD - 1)begin
+			if (counter < TOTAL_PERIOD - 1)begin
 				counter <= counter + 1;
 			end else begin
 				counter <= '0;
 			end
 
-  		pwm_out <= (counter < duty); //if duty is mayor that counter pwm_out=1, else pwm_out=0
-
          	end
 
 	end
+	assign pwm_out = (counter < duty); //if duty is mayor that counter pwm_out=1, else pwm_out=0
 
 endmodule
 

@@ -4,7 +4,7 @@ module current_monitor(
 	input real measure_current,
 	output logic current_high
 );
-	logic current_b_out;
+	logic [11:0] current_b_out;
 
 	adc adc_current(
 		.analog_in(measure_current),
