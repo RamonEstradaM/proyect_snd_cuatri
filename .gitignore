@@ -3,5 +3,8 @@
 *.d
 *.history
 *.log
+*.sim
+*.svm
+*.diag
 
 
