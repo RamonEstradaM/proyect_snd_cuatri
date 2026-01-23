@@ -26,13 +26,16 @@ module top_servo_tb();
 			measure_grades = 0;
 			#20ns;
 			rst_n=1;
-
+			grades = 90;
+			measure_current = 1;
+			measure_grades = 0;
+			#50ms;
 		end
 
 
 
 		initial begin
-			#50ns;
+			#50ms;
 			$finish;
 		end
 
