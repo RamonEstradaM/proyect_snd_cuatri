@@ -17,7 +17,7 @@ module top_servo_tb();
 		.pwm_out(pwm_out)
 	);
 
-	always #5ns clk = ~clk;
+	always #10ns clk = ~clk;
 
 		initial begin
 			rst_n = 0;
