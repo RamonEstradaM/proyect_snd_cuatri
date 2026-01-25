@@ -2,8 +2,7 @@ module control_pid #(
 	//coeficients control PID 
 	parameter int KP = 100,
 	parameter int KI = 1,
-	parameter int KD = 10,
-	parameter int SAMPLE_DIV = 50000
+	parameter int KD = 10
 
 )(
 
