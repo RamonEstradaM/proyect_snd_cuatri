@@ -1,6 +1,6 @@
 module current_process#(
 	parameter [11:0] CURRENT_MAX = 12'd2500, //current in 2V
-	parameter int TIME_LIMIT = 5000 //cycles of wait before of off
+	parameter int TIME_LIMIT = 1000 //cycles of wait before of off 20ms
 )(
 	input logic clk,
 	input logic rst_n,
@@ -14,13 +14,15 @@ module current_process#(
 			time_current_high <= 0;
 			current_high <= 1'b1;
 		end else begin
-			if (CURRENT_MAX <=  current_b_out)begin
-				if(time_current_high > TIME_LIMIT)begin
-					current_high <= 1'b1;
-				end
-			end else 
+			if (CURRENT_MAX > current_b_out)begin
 				time_current_high <= time_current_high + 1;
+				if(time_current_high > TIME_LIMIT)
+					current_high <= 1'b1;
+				else
+					current_high <= 1'b0;
+			end else
 				current_high <= 1'b0;
-			end
+				time_current_high <= 1'b0;
+		end
 	end
 endmodule
