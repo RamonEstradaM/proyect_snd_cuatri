@@ -29,14 +29,20 @@ module top_servo_tb();
 			grades = 90;
 			measure_current = 6;
 			measure_grades = 90;
-			#100ms;
+			#15ms;
+			measure_current = 1;
+			measure_grades = 90;
+			#15ms;
+			measure_current = 5;
+			#15ms;
+			measure_current = 2;
 			
 		end
 
 
 
 		initial begin
-			#200ms;
+			#210ms;
 			$finish;
 		end
 
