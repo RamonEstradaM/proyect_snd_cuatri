@@ -27,7 +27,7 @@ module control_pid #(
 		if(!rst_n) begin
 			integral <= 0;
 			last_error <= 0;
-			duty_out <= 18'd75000; //return to center
+			duty_out <= 18'd0; //return to center
 		end else begin 
 			error = $signed({1'b0, gtob_out}) - $signed({1'b0, position_b_out});
 
