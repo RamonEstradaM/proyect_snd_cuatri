@@ -25,17 +25,10 @@ module top_servo_tb();
 			measure_current = 0;
 			measure_grades = 0;
 			#10ms;
-			rst_n=1;
 			grades = 90;
-			measure_current = 6;
-			measure_grades = 90;
-			#15ms;
-			measure_current = 1;
-			measure_grades = 90;
-			#15ms;
-			measure_current = 5;
-			#15ms;
-			measure_current = 2;
+			#100ms;
+			grades = 90;
+			#100ms;
 			
 		end
 
