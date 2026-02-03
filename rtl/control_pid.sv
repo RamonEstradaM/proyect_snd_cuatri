@@ -29,15 +29,15 @@ module control_pid #(
 			last_error <= 0;
 			duty_out <= 18'd0; //return to center
 		end else begin 
-			error = $signed({1'b0, gtob_out}) - $signed({1'b0, position_b_out});
+			error <= $signed({1'b0, gtob_out}) - $signed({1'b0, position_b_out});
 
 			integral <= integral + error;  //calculated integral error
 			
-			derivative = error - last_error;   //calculated derivated error
+			derivative <= error - last_error;   //calculated derivated error
 			
 			last_error <= error;   //currently error to last_error in the next cycle
 
-			control_val = OFFSET + (KP * error) + (KI * integral) + (KD * derivative);  //PID equation
+			control_val <= OFFSET + (KP * error) + (KI * integral) + (KD * derivative);  //PID equation
 
 			if (control_val > MAX_DUTY)  //protection for position max or min
 				duty_out <= MAX_DUTY;
