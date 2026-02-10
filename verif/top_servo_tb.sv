@@ -30,7 +30,7 @@ module top_servo_tb();
         intf.measure_grades = 0;
         intf.reset_dut();
         
-        // Simulación del motor en background
+        // motor simulation
         fork
             intf.run_motor_sim(0.1);
         join_none
