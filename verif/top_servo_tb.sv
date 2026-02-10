@@ -40,7 +40,7 @@ module top_servo_tb();
         #100ms;
 
         // test for failed current
-        intf.force_fault(5.0);
+        intf.value_current(5.0);
         #30ms; 
 
         $finish;
