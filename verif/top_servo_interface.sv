@@ -16,7 +16,7 @@ interface top_servo_interface(input logic clk);
         grades <= target;
     endtask
 
-    task force_fault(input real value);
+    task value_current(input real value);
         @(posedge clk);
         measure_current <= value;
     endtask
