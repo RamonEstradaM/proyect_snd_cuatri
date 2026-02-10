@@ -28,7 +28,7 @@ module top_servo_tb();
         //initial signals in zero
         intf.measure_current = 0;
         intf.measure_grades = 0;
-        intf.reset_dut();
+        intf.rst_n_dut();
         
         // motor simulation with changes of grades of 0.1
         fork
