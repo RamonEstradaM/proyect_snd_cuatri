@@ -5,7 +5,7 @@ interface top_servo_interface(input logic clk);
     real         measure_grades;
     logic        pwm_out;
 
-    task reset_dut();
+    task rst_n_dut();
         rst_n <= 1'b0;
         #100ns;
         rst_n <= 1'b1;
