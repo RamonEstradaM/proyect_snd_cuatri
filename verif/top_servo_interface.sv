@@ -1,6 +1,8 @@
 interface top_servo_interface(input logic clk);
     logic        rst_n;
-    real         grades, measure_current, measure_grades;
+    real         grades;
+    real         measure_current;
+    real         measure_grades;
     logic        pwm_out;
 
     task reset_dut();
