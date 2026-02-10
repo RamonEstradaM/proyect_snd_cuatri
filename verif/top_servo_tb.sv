@@ -35,18 +35,18 @@ module top_servo_tb();
             intf.run_motor_sim(0.1);
         join_none
 
-        // TC-07: Movimiento a 90 grados
+        //Movement to 90 grades
         intf.move_to(90.0);
         #100ms;
 
-        // TC-18: Prueba de falla de corriente
+        // test failed current
         intf.force_fault(5.0);
-        #30ms; // Tiempo suficiente para que actúe la protección de 20ms
+        #30ms; 
 
         $finish;
     end
 
-    // Aserciones de validación automática
+    // assertions for position
     `define DUTY_REG top_servo_sim.control_pid_inst.duty_out
     
     property p_pwm_range;
