@@ -46,7 +46,7 @@ module top_servo_tb();
         $finish;
     end
 
-    // assertions for position
+    // assertion for duty out, in values between 50000(0) and 100000(180)
     `define DUTY_REG top_servo_sim.control_pid_inst.duty_out
     
     property p_pwm_range;
