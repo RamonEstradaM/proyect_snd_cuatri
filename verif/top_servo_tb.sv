@@ -25,12 +25,12 @@ module top_servo_tb();
 
     
     initial begin
-        //intital in signals in zero
+        //initial signals in zero
         intf.measure_current = 0;
         intf.measure_grades = 0;
         intf.reset_dut();
         
-        // motor simulation
+        // motor simulation with changes of grades of 0.1
         fork
             intf.run_motor_sim(0.1);
         join_none
@@ -39,7 +39,7 @@ module top_servo_tb();
         intf.move_to(90.0);
         #100ms;
 
-        // test failed current
+        // test for failed current
         intf.force_fault(5.0);
         #30ms; 
 
