@@ -2,7 +2,7 @@ module top_servo_tb();
     bit clk;
     
     
-    always #10ns clk = ~clk; //clock generate
+    always #10ns clk = ~clk; 
 
     // instantiation interface
     servo_interface intf(clk);//
