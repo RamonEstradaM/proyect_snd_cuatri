@@ -1,13 +1,13 @@
 module top_servo_tb();
     bit clk;
     
-    // Generación de reloj
-    always #10ns clk = ~clk;
+    
+    always #10ns clk = ~clk; //clock generate
 
-    // Instancia de la interfaz
-    servo_interface intf(clk);
+    // instantiation interface
+    servo_interface intf(clk);//
 
-    // Instancia del DUT conectada a la interfaz
+    // instantiation to top_servo_interface
     top_servo top_servo_sim(
         .clk(clk),
         .rst_n(intf.rst_n),
@@ -17,15 +17,15 @@ module top_servo_tb();
         .pwm_out(intf.pwm_out)
     );
 
-    // Bloque de apertura de base de datos para ondas (Obligatorio)
+ 
     initial begin
         $shm_open("shm_db");
         $shm_probe("ASMTR");
     end
 
-    // Secuencia de estímulos basada en el Test Plan
+    
     initial begin
-        // Inicialización
+        //intital in signals in zero
         intf.measure_current = 0;
         intf.measure_grades = 0;
         intf.reset_dut();
