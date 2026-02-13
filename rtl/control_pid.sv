@@ -1,8 +1,8 @@
 module control_pid #(
     parameter int KP = 100,  //proportional gain
-    parameter int KI = 1,    //integral gain
+    parameter int KI = 2,    //integral gain
     parameter int KD = 10   //derivative gain
-    (
+   )(
     input logic clk, 
     input logic rst_n,
     input logic [11:0] gtob_out, //desired position
@@ -11,10 +11,10 @@ module control_pid #(
 );
 
     // control signals or states
-    logic signed [31:0] error,  
-	logic signed [31:0] last_error, 
-        logic signed [31:0] control_val, 
-	logic signed [31:0] integral,
+    logic signed [31:0] error;  
+	logic signed [31:0] last_error; 
+        logic signed [31:0] control_val; 
+	logic signed [31:0] integral;
     logic signed [31:0] derivative;
     logic signed [31:0] next_control_val;
 
