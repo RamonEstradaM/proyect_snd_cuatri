@@ -5,7 +5,7 @@ module top_servo_tb();
     always #10ns clk = ~clk; 
 
     // instantiation interface
-    servo_interface intf(clk);//
+    top_servo_interface intf(clk);//
 
     // instantiation to top_servo_interface
     top_servo top_servo_sim(
@@ -41,13 +41,13 @@ module top_servo_tb();
 
         // test for failed current
         intf.value_current(5.0);
-        #30ms; 
+        #100ms; 
 
         $finish;
     end
 
     // assertion for duty out, in values between 50000(0) and 100000(180)
-    `define DUTY_REG top_servo_sim.control_pid_inst.duty_out
+    `define DUTY_REG top_servo_sim.pid_top.duty_out
     
     property p_pwm_range;
         @(posedge clk) (intf.rst_n) |-> (`DUTY_REG >= 50000 && `DUTY_REG <= 100000);

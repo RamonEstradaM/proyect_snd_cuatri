@@ -5,73 +5,30 @@ interface top_servo_interface(input logic clk);
     real         measure_grades;
     logic        pwm_out;
 
-    task rst_n_dut();
+    task rst_n_dut();//reset function
         rst_n <= 1'b0;
         #100ns;
         rst_n <= 1'b1;
     endtask
 
-    task move_to(input real target);
+    task move_to(input real target);//desired position 
         @(posedge clk);
         grades <= target;
     endtask
 
-    task value_current(input real value);
+    task value_current(input real value);//current value
         @(posedge clk);
         measure_current <= value;
     endtask
 
-    task run_motor_sim(input real speed);
+    task run_motor_sim(input real speed);//
         forever begin
             @(posedge clk);
             if (rst_n) begin
-                if (measure_grades < grades - 0.5)      measure_grades <= measure_grades + speed;
-                else if (measure_grades > grades + 0.5) measure_grades <= measure_grades - speed;
+                if (measure_grades < grades - 0.01)      measure_grades <= measure_grades + speed;
+                else if (measure_grades > grades + 0.01) measure_grades <= measure_grades - speed;
             end
         end
     endtask
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 endinterface
