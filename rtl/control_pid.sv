@@ -1,20 +1,18 @@
 module control_pid #(
-    parameter int KP = 30,  //proportional gain
+    parameter int KP = 2,  //proportional gain
     parameter int KI = 0,    //integral gain
     parameter int KD = 5   //derivative gain
 )(
     input logic clk, 
     input logic rst_n,
-    input logic [11:0] gtob_out, //desired position
+    input logic [17:0] gtob_out, //desired position
     input logic [11:0] position_b_out, //current position 
     output logic [17:0] duty_out //final value for the input of PWM
 );
 
     // control signals or states
     logic signed [31:0] error_reg;
-  	logic signed [31:0] error_comb;  
- 
-        logic signed [31:0] control_val; 
+  	logic signed [31:0] error_comb;   
 	logic signed [31:0] integral;
     logic signed [31:0] derivative;
     logic signed [31:0] next_control_val;
@@ -24,11 +22,11 @@ module control_pid #(
     //maximum and minimum limits for the integrated or acumulate error
     localparam signed [31:0] INT_MAX = 200000, INT_MIN = -200000;
 
-    assign error_comb = $signed({1'b0, gtob_out}) - $signed({1'b0, position_b_out});
+    assign error_comb = $signed({1'b0, gtob_out}) - $signed({1'b0, ( (position_b_out * 5000) / 4095 ) + 5000});
 
     // combinational logic for the obtention of control PID
     always_comb begin
-        next_control_val = OFFSET + (KP * error_reg) + (KI * integral) + (KD * derivative);
+        next_control_val = $signed({1'b0, gtob_out}) + (KP * error_reg) + (KI * integral) + (KD * derivative);
     end
 
     // secuential logic
@@ -38,7 +36,7 @@ module control_pid #(
            
             error_reg      <= 0;
             derivative <= 0;
-            duty_out   <= OFFSET[17:0]; // reset to center
+            duty_out   <= gtob_out; // reset to center
         end else begin
             // calculated derivative error and currently error
             error_reg  <= error_comb;

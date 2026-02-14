@@ -33,18 +33,21 @@ module top_servo_tb();
         
         // motor simulation with changes of grades of 0.1
         fork
-            intf.run_motor_sim(2);
+            intf.run_motor_sim(0.1);
         join_none
 
 	intf.move_to(45);
 	intf.wait_position_desire(45);
+	#500us;
 
 	intf.move_to(135);
         intf.wait_position_desire(135);
+	
 
         // test for failed current
         intf.value_current(5.0);
-        #2ms; 
+        #3ms; 
+	
 
         $finish;
     end

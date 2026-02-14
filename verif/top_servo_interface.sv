@@ -27,10 +27,14 @@ interface top_servo_interface(input logic clk);
     //task for indicated the movement speed of motor 
     task run_motor_sim(input real speed);
         forever begin
-            #2ms;
+            #10us;
             if (rst_n) begin
-                if (measure_grades < grades - 1)      measure_grades <= measure_grades + speed;
-                else if (measure_grades > grades + 1) measure_grades <= measure_grades - speed;
+                if (measure_grades < grades - 0.5)      
+			measure_grades <= measure_grades + speed;
+                else if (measure_grades > grades + 0.5) 
+			measure_grades <= measure_grades - speed;
+		else 
+			measure_grades <= grades;
             end
         end
     endtask
