@@ -1,6 +1,6 @@
 module pwm #(
 	parameter CLK_IN = 50_000_000, //Input clock(50MHz)
-	parameter FREQ_SERVO = 50     //Pulse time of 20ms, for that 1/20ms = 50Hz
+	parameter FREQ_SERVO = 500     //Pulse time of 20ms, for that 1/20ms = 50Hz
 
 )(
 	input logic clk,         //System clock

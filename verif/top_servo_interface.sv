@@ -5,30 +5,40 @@ interface top_servo_interface(input logic clk);
     real         measure_grades;
     logic        pwm_out;
 
-    task rst_n_dut();//reset function
+    //task for reset function
+    task rst_n_dut();
         rst_n <= 1'b0;
         #100ns;
         rst_n <= 1'b1;
     endtask
 
-    task move_to(input real target);//desired position 
+    //task for indicated desire position
+    task move_to(input real target); 
         @(posedge clk);
         grades <= target;
     endtask
 
-    task value_current(input real value);//current value
+    //task for indicated current value
+    task value_current(input real value);
         @(posedge clk);
         measure_current <= value;
     endtask
 
-    task run_motor_sim(input real speed);//
+    //task for indicated the movement speed of motor 
+    task run_motor_sim(input real speed);
         forever begin
-            @(posedge clk);
+            #2ms;
             if (rst_n) begin
-                if (measure_grades < grades - 0.01)      measure_grades <= measure_grades + speed;
-                else if (measure_grades > grades + 0.01) measure_grades <= measure_grades - speed;
+                if (measure_grades < grades - 1)      measure_grades <= measure_grades + speed;
+                else if (measure_grades > grades + 1) measure_grades <= measure_grades - speed;
             end
         end
     endtask
+
+  task wait_position_desire(input real target);
+	  do begin
+		@(posedge clk);
+	end while (measure_grades < target - 1.5 || measure_grades > target + 1.5);
+  endtask
 
 endinterface

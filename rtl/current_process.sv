@@ -1,6 +1,6 @@
 module current_process#(
 	parameter [11:0] CURRENT_MAX = 12'd2500, //current in 2V
-	parameter TIME_LIMIT = 1000000 //cycles of wait before of off 20ms
+	parameter TIME_LIMIT = 100000 //cycles of wait before of off 20ms
 )(
 	input logic clk,
 	input logic rst_n,

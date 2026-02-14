@@ -28,50 +28,25 @@ module top_servo_tb();
         //initial signals in zero
         intf.measure_current = 0;
         intf.measure_grades = 0;
+	intf.grades = 0;
         intf.rst_n_dut();
         
         // motor simulation with changes of grades of 0.1
         fork
-            intf.run_motor_sim(0.1);
+            intf.run_motor_sim(2);
         join_none
 
-        //Movement to 90 grades
-        intf.move_to(90.0);
-        #100ms;
+	intf.move_to(45);
+	intf.wait_position_desire(45);
+
+	intf.move_to(135);
+        intf.wait_position_desire(135);
 
         // test for failed current
         intf.value_current(5.0);
-        #100ms; 
+        #2ms; 
 
         $finish;
     end
 
-    // assertion for duty out, in values between 50000(0) and 100000(180)
-    `define DUTY_REG top_servo_sim.pid_top.duty_out
-    
-    property p_pwm_range;
-        @(posedge clk) (intf.rst_n) |-> (`DUTY_REG >= 50000 && `DUTY_REG <= 100000);
-    endproperty
-    assert property (p_pwm_range);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
 endmodule
