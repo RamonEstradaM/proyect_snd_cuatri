@@ -32,9 +32,8 @@ module control_pid #(
     // secuential logic
     always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
-            integral   <= 0;
-           
-            error_reg      <= 0;
+            integral   <= 0;     
+            error_reg  <= 0;
             derivative <= 0;
             duty_out   <= 18'd5000; // reset to center
         end else begin
