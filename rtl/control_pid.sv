@@ -36,7 +36,7 @@ module control_pid #(
            
             error_reg      <= 0;
             derivative <= 0;
-            duty_out   <= gtob_out; // reset to center
+            duty_out   <= 18'd5000; // reset to center
         end else begin
             // calculated derivative error and currently error
             error_reg  <= error_comb;
