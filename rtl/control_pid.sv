@@ -1,7 +1,7 @@
 module control_pid #(
     parameter int KP = 1,  //proportional gain
     parameter int KI = 0,    //integral gain
-    parameter int KD = 5   //derivative gain
+    parameter int KD = 100   //derivative gain
 
 )(
     input logic clk, 
@@ -31,6 +31,7 @@ module control_pid #(
         next_control_val = $signed({1'b0, gtob_out}) + (KP * error_reg) + (KI * integral) + (KD * derivative);
     end
 
+	
     // secuential logic
     always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
@@ -42,7 +43,7 @@ module control_pid #(
         end else begin
             // calculated derivative error and currently error
 	    derivative <= error_comb - error_prev;
-	    error_prev <= error_comb;
+	    error_prev <= error_reg;
 	    error_reg <= error_comb;
 
 	    //calculated integral error and anti-windup
@@ -58,6 +59,10 @@ module control_pid #(
 		    duty_out <= MIN_DUTY[17:0];
             else                                 
 		    duty_out <= next_control_val[17:0];
+	    
+		
+
         end
     end
+
 endmodule
