@@ -36,18 +36,19 @@ module top_servo_tb();
             intf.run_motor_sim(0.1);
         join_none
 
-	intf.move_to(45);
-	intf.wait_position_desire(45);
-	#500us;
+	intf.move_to(90);
+	intf.wait_position_desire(90);
+	#20ms;
 
-	intf.move_to(135);
-        intf.wait_position_desire(135);
-	
+	intf.move_to(180);
+        intf.wait_position_desire(180);
+	#20ms;
 
         // test for failed current
         intf.value_current(5.0);
-        #3ms; 
+        #5ms; 
 	
+	intf.value_current(2);
 
         $finish;
     end
