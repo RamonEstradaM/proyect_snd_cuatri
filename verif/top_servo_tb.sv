@@ -48,23 +48,8 @@ module top_servo_tb();
             intf.run_motor_sim(0.7);
         join_none
 
-	intf.move_to(90);
-	intf.wait_position_desire(90);
-	#20ms;
-
-	intf.move_to(180);
-        intf.wait_position_desire(180);
-	#20ms;
-
-	intf.measure_grades = 45.0;
-
-	#100ns;
-
-        // test for failed current
-        intf.value_current(5.0);
-        #5ms; 
-	
-	intf.value_current(2);
+	intf.current_peaks();
+	#10ns;
 
         $finish;
     end
