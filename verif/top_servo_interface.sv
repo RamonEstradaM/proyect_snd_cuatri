@@ -8,7 +8,7 @@ interface top_servo_interface(input logic clk);
     //task for reset function
     task rst_n_dut();
         rst_n <= 1'b0;
-        #100ns;
+        #10ms;
         rst_n <= 1'b1;
     endtask
 
@@ -30,11 +30,16 @@ interface top_servo_interface(input logic clk);
             #10us;
             if (rst_n) begin
                 if (measure_grades < grades - 0.5)      
-			measure_grades <= measure_grades + speed;
+			measure_grades = measure_grades + speed;
                 else if (measure_grades > grades + 0.5) 
-			measure_grades <= measure_grades - speed;
+			measure_grades = measure_grades - speed;
 		else 
-			measure_grades <= grades;
+			measure_grades = grades;
+		if(measure_grades > 180.0)
+			measure_grades = 180.0;
+		else if(measure_grades <  0.1)
+			measure_grades = 0.0;
+
             end
         end
     endtask
@@ -63,8 +68,8 @@ interface top_servo_interface(input logic clk);
 	task over_limit();
 		$display("Test Case Over Limit");
 		intf.move_to(200.0);
-		intf.wait_position_desire(200.0);
-		#15ms;
+		intf.wait_position_desire(180.0);
+		#25ms;
 		if(intf.measure_grades <= 181.0)
 			$display("Test Case Over Limit completed");
 		else
@@ -74,10 +79,10 @@ interface top_servo_interface(input logic clk);
 
 	task under_limit();
                 $display("Test Case Under Limit");
-                intf.move_to(200.0);
-                intf.wait_position_desire(-10.0);
-                #15ms;
-                if(intf.measure_grades >= -0.5)
+                intf.move_to(-10.0);
+                intf.wait_position_desire(0.0);
+                #25ms;
+                if(intf.measure_grades >= -1 && intf.measure_grades <= 1 )
                         $display("Test Case Under Limit completed");
                 else
                         $error("Test Case Under Limit Failed");
@@ -102,7 +107,7 @@ interface top_servo_interface(input logic clk);
 		intf.move_to(0.0);
 		intf.wait_position_desire(0.0);
 		#15ms;
-		if(intf,measure_grades <= 0.5);
+		if(intf.measure_grades <= 0.5)
 			$display("Test Case Position Zero Completed");
 		else
 			$error("Test Case Position Zero Failed");
@@ -114,8 +119,10 @@ interface top_servo_interface(input logic clk);
 		$display("Test Case Positive Jump");
 		intf.move_to(45.0);
 		intf.wait_position_desire(45.0);
+		#5ms;
 		intf.move_to(150.0);
                 intf.wait_position_desire(150.0);
+		#5ms;
 		intf.move_to(30.0);
                 intf.wait_position_desire(30.0);
 	endtask
@@ -150,11 +157,4 @@ interface top_servo_interface(input logic clk);
                         	$error("Test Case Current Peaks Failed");
 		end
 	endtask
-
-
-
-
-
-
-
 endinterface

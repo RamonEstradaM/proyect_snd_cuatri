@@ -48,9 +48,10 @@ module top_servo_tb();
             intf.run_motor_sim(0.7);
         join_none
 
+	intf.movement_max();
+	#1ms;
 	intf.current_peaks();
-	#10ns;
-
+	#1ms;
         $finish;
     end
 
