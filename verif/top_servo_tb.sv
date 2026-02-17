@@ -17,6 +17,18 @@ module top_servo_tb();
         .pwm_out(intf.pwm_out)
     );
 
+    top_servo_cov cov_inst (
+        .intf(intf)
+    );
+
+    fv_top_servo fv_top(
+    	.clk(clk),
+	.rst_n(rst_n),
+	.current_high(top_servo_sim.current_high),
+	.pwm_in(intf.pwm_out),
+	.gtob_out(top_servo_sim.gtob_out)
+    );
+
  
     initial begin
         $shm_open("shm_db");

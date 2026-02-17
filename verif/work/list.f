@@ -1,7 +1,7 @@
 
 #FV
 
-      ../top_servo_interface.sv
+      
 
 
 # ============================ rtl
@@ -17,6 +17,9 @@
         ../../fv/fv_top_servo.sv
 
 # ============================ verification
+        ../top_servo_cov.sv
+        ../top_servo_interface.sv
+
        ../top_servo_tb.sv
        
 

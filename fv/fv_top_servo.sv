@@ -6,15 +6,17 @@ module fv_top_servo(
 	input logic [11:0] gtob_out
 );
 
-	assert_safety: assert property (@(posedge clk)
+	assert_safety: assert property (@(posedge clk) disable iff (!rst_n)
 		current_high|->(pwm_in == 18'b0)
 	);
 
-	assert_max_limit: assert property(@(posedge clk)
-		(pwm_in <= 100000)
+	assert_max_limit: assert property(@(posedge clk) disable iff (!rst_n)
+
+		(pwm_in <= 18'd10000)
 	);
 	assert_reset_position: assert property(@(posedge clk)
-		(!rst_n|->pwm_in == 75000 )
+
+		(!rst_n|->pwm_in == 18'b0 )
 	);
 
 endmodule
