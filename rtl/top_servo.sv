@@ -9,7 +9,7 @@ module top_servo(
 );
 
 
-	logic [11:0] gtob_out;
+	logic [17:0] gtob_out;
 	logic [11:0] position_b_out;
 	logic current_high;
 	logic [17:0] duty_out;
