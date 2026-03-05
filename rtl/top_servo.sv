@@ -5,6 +5,7 @@ module top_servo(
 	input real measure_current,
 	input real measure_grades,
 	output logic pwm_out
+	output logic [17:0] duty_out
 
 );
 
@@ -12,7 +13,6 @@ module top_servo(
 	logic [17:0] gtob_out;
 	logic [11:0] position_b_out;
 	logic current_high;
-	logic [17:0] duty_out;
 	logic [17:0] pwm_in;
 	
 
