@@ -7,12 +7,12 @@ module control_pid #(
 )(
     input  logic clk, 
     input  logic rst_n,
-    input  logic [7:0]  grades,         // Setpoint deseado (0 - 180)
-    input  logic [7:0]  measure_grades, // Posición actual (0 - 180)
-    output logic [17:0] duty_out        // Salida al PWM
+    input  logic [7:0]  grades,         // Setpoint desired (0 - 180)
+    input  logic [7:0]  measure_grades, // currently position (0 - 180)
+    output logic [17:0] duty_out        // Out for pwm
 );
 
-    // Señales de control
+    // Signals control
     logic signed [31:0] error_reg;
     logic signed [31:0] error_prev;
     logic signed [31:0] error_comb;   
@@ -21,49 +21,49 @@ module control_pid #(
     logic signed [31:0] next_control_val;
     logic signed [31:0] duty_base;
 
-    // Límites del PWM para un reloj de 50MHz (1ms a 2ms)
+    // Limits under and over
     localparam signed [31:0] MIN_DUTY = 50000;
     localparam signed [31:0] MAX_DUTY = 100000;
     
-    // Límites para el error acumulado
+    // Límis for the acumulated error
     localparam signed [31:0] INT_MAX = 200000;
     localparam signed [31:0] INT_MIN = -200000;
 
-    // 1. Mapeo de grados a Duty Cycle (Feed-Forward)
-    // Se multiplica por 278 ya que el rango es 50,000 y hay 180 grados.
+    
+    //Mapped of grades to duty cycle
     assign duty_base = MIN_DUTY + (grades * 278);
 
-    // 2. Cálculo del error en grados
+    //eror calculated
     assign error_comb = $signed({1'b0, grades}) - $signed({1'b0, measure_grades});
 
-    // 3. Lógica combinacional para la ecuación PID
-    // Se utiliza duty_base (equivalente a tu gtob_out mapeado) como punto de partida
+    
+    // Calculated control PID
     always_comb begin
         next_control_val = duty_base + (KP * error_reg) + (KI * integral) + (KD * derivative);
     end
     
-    // 4. Lógica secuencial
+    
     always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
             integral   <= 0;      
             error_reg  <= 0;
             error_prev <= 0;
             derivative <= 0;
-            duty_out   <= 18'd50000; // Reset a 90 grados (posición central)
+            duty_out   <= 18'd50000; // Reset to 0
         end else begin
             
-            // Cálculo del error derivativo y actualización de errores
+            // calculated derivative error
             derivative <= error_comb - error_prev;
             error_prev <= error_reg;
             error_reg  <= error_comb;
 
-            // Cálculo del error integral con Anti-Windup
+            //error integral
             if (next_control_val <= MAX_DUTY && next_control_val >= MIN_DUTY) begin
                 if (integral + error_comb <= INT_MAX && integral + error_comb >= INT_MIN)
                     integral <= integral + error_comb;
             end
 
-            // Aplicación de límites de saturación y asignación de salida
+           //limits of saturation
             if (next_control_val > MAX_DUTY)      
                 duty_out <= MAX_DUTY[17:0];
             else if (next_control_val < MIN_DUTY) 
